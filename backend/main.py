@@ -1,6 +1,7 @@
 from flask import Flask, send_from_directory, request
 import os
 import subprocess
+from flask_cors import CORS
 import threading
 from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
@@ -8,6 +9,14 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
 app = Flask(__name__)
+
+CORS(app, resources={
+    r"/*": {
+        "origins": ["https://mp4-hls-mocker.netlify.app/"],
+        "methods": ["POST", "GET", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 UPLOAD_FOLDER = "uploads"
 HLS_FOLDER = "hls_output"
@@ -101,7 +110,7 @@ def upload_file():
         expiry_time = datetime.now() + timedelta(minutes=FILE_EXPIRY_MINUTES)
         return {
             "message": "Conversion Success",
-            "stream_url": f"/stream/{output_filename}/playlist.m3u8",
+            "stream_url": f"https://mp4-mock-stream.onrender.com/stream/{output_filename}/playlist.m3u8",
             "expires_at": expiry_time.isoformat()
         }
     

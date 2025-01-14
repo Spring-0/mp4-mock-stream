@@ -1,0 +1,4 @@
+waitress
+flask
+apscheduler
+flask_cors
