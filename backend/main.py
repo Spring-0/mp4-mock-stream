@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 CORS(app, resources={
     r"/*": {
-        "origins": ["https://mp4-hls-mocker.netlify.app/"],
+        "origins": ["https://mp4-hls-mocker.netlify.app"],
         "methods": ["POST", "GET", "OPTIONS"],
         "allow_headers": ["Content-Type"]
     }
